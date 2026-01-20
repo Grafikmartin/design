@@ -2,19 +2,18 @@
 
 :root {
   /* Primärfarben */
-  --color-electric-blue: #2563FF;
-  --color-hot-pink: #FF2D8D;
-  --color-vivid-purple: #7C3AED;
-  --color-lime-green: #22C55E;
-  --color-sunny-orange: #FF8A00;
+  --color-signal: #e36255;
+  --color-coral: #ec9a86;
+  --color-sky: #a2c5c9;
+  --color-gold: #f3c262;
 
   /* Hintergrund */
-  --bg-primary: #0a0a0a;
-  --bg-secondary: #1a1a1a;
+  --bg-primary: #f1e0ce;
+  --bg-secondary: #e8d5c0;
   
   /* Text */
-  --text-primary: #ffffff;
-  --text-secondary: rgba(255, 255, 255, 0.8);
+  --text-primary: #2a2a2a;
+  --text-secondary: rgba(42, 42, 42, 0.8);
   
   /* Spacing */
   --spacing-xs: 0.5rem;
@@ -31,15 +30,13 @@
 }
 
 /* Utility Classes für Farben */
-.color-electric-blue { color: var(--color-electric-blue); }
-.color-hot-pink { color: var(--color-hot-pink); }
-.color-vivid-purple { color: var(--color-vivid-purple); }
-.color-lime-green { color: var(--color-lime-green); }
-.color-sunny-orange { color: var(--color-sunny-orange); }
+.color-signal { color: var(--color-signal); }
+.color-coral { color: var(--color-coral); }
+.color-sky { color: var(--color-sky); }
+.color-gold { color: var(--color-gold); }
 
-.bg-electric-blue { background-color: var(--color-electric-blue); }
-.bg-hot-pink { background-color: var(--color-hot-pink); }
-.bg-vivid-purple { background-color: var(--color-vivid-purple); }
-.bg-lime-green { background-color: var(--color-lime-green); }
-.bg-sunny-orange { background-color: var(--color-sunny-orange); }
+.bg-signal { background-color: var(--color-signal); }
+.bg-coral { background-color: var(--color-coral); }
+.bg-sky { background-color: var(--color-sky); }
+.bg-gold { background-color: var(--color-gold); }
 
