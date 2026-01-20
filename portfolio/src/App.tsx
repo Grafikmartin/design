@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react'
 import './App.css'
 
-const colors = ['#e36255', '#ec9a86', '#a2c5c9', '#f3c262'];
+const colors: string[] = ['#e36255', '#ec9a86', '#a2c5c9', '#f3c262'];
 
-function getNextColor(prevColorIndex) {
+function getNextColor(prevColorIndex: number): number {
   // Wähle eine zufällige Farbe, die nicht die gleiche wie die vorherige ist
   const availableIndices = colors
     .map((_, index) => index)
@@ -14,14 +14,14 @@ function getNextColor(prevColorIndex) {
 }
 
 function App() {
-  const lines = [
+  const lines: string[] = [
     "WELCOME",
     "TO MY CORNER",
     "OF THE WEB"
   ];
 
   // Sammle alle Buchstaben (ohne Leerzeichen) und weise initiale Farben zu
-  const allLetters = [];
+  const allLetters: string[] = [];
   lines.forEach(line => {
     line.split('').forEach(char => {
       if (char !== ' ') {
@@ -31,8 +31,8 @@ function App() {
   });
 
   // Initiale Farbverteilung
-  const getInitialColors = () => {
-    const charColors = [];
+  const getInitialColors = (): string[] => {
+    const charColors: string[] = [];
     let prevColorIndex = -1;
     allLetters.forEach(() => {
       const colorIndex = getNextColor(prevColorIndex);
@@ -47,9 +47,9 @@ function App() {
   const numberOfGroups = Math.ceil(allLetters.length / groupSize);
   
   // Generiere zufällige Gruppen: Jede Gruppe besteht aus 3 zufällig ausgewählten Buchstaben
-  const getRandomGroupDelays = (count) => {
-    const delays = new Array(count).fill(Infinity); // Initialisiere mit Infinity
-    const groupPause = 5000; // Pause zwischen Gruppen (5 Sekunden)
+  const getRandomGroupDelays = (count: number): number[] => {
+    const delays: number[] = new Array(count).fill(Infinity); // Initialisiere mit Infinity
+    const groupPause = 10000; // Pause zwischen Gruppen (10 Sekunden)
     const withinGroupOffset = 150; // Zeitversatz innerhalb der Gruppe (150ms)
     
     // Erstelle eine Liste aller Indizes
@@ -58,7 +58,7 @@ function App() {
     // Erstelle zufällige Gruppen
     for (let groupIndex = 0; groupIndex < numberOfGroups; groupIndex++) {
       // Wähle zufällig 3 Indizes aus den verfügbaren
-      const group = [];
+      const group: number[] = [];
       for (let i = 0; i < groupSize && availableIndices.length > 0; i++) {
         const randomIndex = Math.floor(Math.random() * availableIndices.length);
         const charIndex = availableIndices.splice(randomIndex, 1)[0];
@@ -76,59 +76,74 @@ function App() {
     return delays;
   };
 
-  const [charColors, setCharColors] = useState(getInitialColors);
-  const [charDelays] = useState(() => getRandomGroupDelays(allLetters.length));
+  const [charColors, setCharColors] = useState<string[]>(getInitialColors);
+  const [charDelays] = useState<number[]>(() => getRandomGroupDelays(allLetters.length));
 
-  // Animation: Wechsle Farben am Ende der aktiven Animationsphase (bei 50% = 3s)
+  // Animation: Wechsle Farben beim Höchstpunkt (bei 35% = 2.1s) - beim großen Sprung
+  // Synchronisiert mit CSS-Animation (6 Sekunden Zyklus)
   useEffect(() => {
-    const animationDuration = 6000; // Gesamtdauer der Animation (inkl. Pausen)
+    const animationCycleDuration = 6000; // Synchron mit CSS-Animation (6s infinite)
     const animationStart = 1200; // Animation startet bei 20% = 1.2s
-    const animationEnd = 3000; // Animation endet bei 50% = 3s
-    const colorChangeTime = animationEnd; // Farbe wechselt am Ende der Animation (bei 50% = 3s)
-    const groupPause = 5000; // Pause zwischen Gruppen
+    // Farbwechsel beginnt früher (bei 30% = 1.8s) für sanfteren Übergang
+    const colorChangeOffset = 600; // Farbe wechselt bei 30% = 1.8s (früher für sanfteren Verlauf)
     
     // Für jeden Buchstaben einen individuellen Timer starten
     const allTimers = charDelays.map((delay, index) => {
-      const timers = [];
+      const timers: NodeJS.Timeout[] = [];
       
+      // Funktion zum Farbwechsel - garantiert immer eine andere Farbe
       const changeColor = () => {
         setCharColors(prevColors => {
           const newColors = [...prevColors];
-          const currentColorIndex = colors.indexOf(prevColors[index]);
-          const newColorIndex = getNextColor(currentColorIndex);
-          newColors[index] = colors[newColorIndex];
+          const currentColor = prevColors[index];
+          const currentColorIndex = colors.indexOf(currentColor);
+          
+          // Wähle IMMER eine andere Farbe - garantiert
+          // Filtere die aktuelle Farbe heraus und wähle zufällig eine andere
+          const availableColors = colors.filter((_, idx) => idx !== currentColorIndex);
+          
+          if (availableColors.length > 0) {
+            const randomIndex = Math.floor(Math.random() * availableColors.length);
+            newColors[index] = availableColors[randomIndex];
+          } else {
+            // Fallback: Wähle einfach die nächste Farbe im Array
+            newColors[index] = colors[(currentColorIndex + 1) % colors.length];
+          }
+          
           return newColors;
         });
       };
       
-      // Berechne die Zeitpunkte für Farbwechsel
-      // Jeder Buchstabe hat sein eigenes Delay, das den Start seiner Animation bestimmt
-      // Die Animation läuft von delay+1.2s bis delay+3s
-      // Die Farbe wechselt am Ende der Animation (bei delay+3s), damit der Buchstabe danach eine neue Farbe hat
-      
-      // Plane Farbwechsel für mehrere Zyklen
-      // Ein vollständiger Zyklus: Alle Gruppen animieren nacheinander, dann Pause
-      const fullCycleDuration = numberOfGroups * groupPause + animationDuration;
-      
-      for (let cycle = 0; cycle < 50; cycle++) {
-        // Berechne die absolute Zeit für diesen Farbwechsel (am Ende der Animation)
-        const cycleStart = delay + (cycle * fullCycleDuration);
-        const changeTime = cycleStart + colorChangeTime;
+      // Plane Farbwechsel synchronisiert mit CSS-Animation
+      // Jeder Buchstabe animiert alle 6 Sekunden (wie die CSS-Animation)
+      // Der Farbwechsel erfolgt bei jedem Animationszyklus beim Höchstpunkt
+      for (let cycle = 0; cycle < 200; cycle++) {
+        // Berechne die Zeit für diesen Animationszyklus
+        // delay ist das initiale Delay für diesen Buchstaben
+        // Jeder Zyklus dauert 6 Sekunden (wie die CSS-Animation)
+        const cycleStart = delay + (cycle * animationCycleDuration);
+        const changeTime = cycleStart + animationStart + colorChangeOffset;
         
-        // Die Farbe wechselt genau am Ende der Animation (bei 50% = 3s)
-        const timer = setTimeout(changeColor, changeTime);
-        timers.push(timer);
+        // Prüfe, ob der Farbwechsel innerhalb eines gültigen Animationszyklus liegt
+        // (nur während der aktiven Phase: 20-50% = 1.2s bis 3s innerhalb jedes 6s Zyklus)
+        const animationStartTime = cycleStart + animationStart;
+        const animationEndTime = cycleStart + 3000; // 50% = 3s
+        
+        if (changeTime >= animationStartTime && changeTime <= animationEndTime) {
+          const timer = setTimeout(changeColor, changeTime);
+          timers.push(timer);
+        }
       }
       
-      return timers;
+      return { timers };
     });
 
     return () => {
-      allTimers.forEach(timers => {
+      allTimers.forEach(({ timers }) => {
         timers.forEach(timer => clearTimeout(timer));
       });
     };
-  }, [charDelays, numberOfGroups]);
+  }, [charDelays]);
 
   let colorIndex = 0;
 
@@ -152,7 +167,7 @@ function App() {
                     style={{ 
                       '--animation-delay': `${delay}ms`,
                       '--char-color': color
-                    }}
+                    } as React.CSSProperties}
                   >
                     {char}
                   </span>
@@ -168,3 +183,4 @@ function App() {
 }
 
 export default App
+

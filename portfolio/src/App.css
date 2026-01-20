@@ -78,7 +78,7 @@
   animation: char-flip 6s ease-in-out infinite;
   animation-delay: var(--animation-delay, 0ms);
   color: var(--char-color);
-  transition: color 0.05s ease;
+  transition: color 0.8s ease-in-out;
 }
 
 @keyframes char-flip {
