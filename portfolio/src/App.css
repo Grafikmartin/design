@@ -73,7 +73,39 @@
 
 .welcome-char {
   display: inline-block;
-  transition: color 0.3s ease;
+  transform-origin: center bottom;
+  transform-style: preserve-3d;
+  animation: char-flip 6s ease-in-out infinite;
+  animation-delay: var(--animation-delay, 0ms);
+  color: var(--char-color);
+  transition: color 0.05s ease;
+}
+
+@keyframes char-flip {
+  0%, 20% {
+    transform: translateY(0) rotateY(0deg);
+  }
+  35% {
+    transform: translateY(-0.6em) rotateY(180deg);
+  }
+  50% {
+    transform: translateY(0.15em) rotateY(360deg);
+  }
+  57% {
+    transform: translateY(-0.15em) rotateY(360deg);
+  }
+  62% {
+    transform: translateY(0.08em) rotateY(360deg);
+  }
+  66% {
+    transform: translateY(-0.05em) rotateY(360deg);
+  }
+  70% {
+    transform: translateY(0.03em) rotateY(360deg);
+  }
+  75%, 100% {
+    transform: translateY(0) rotateY(360deg);
+  }
 }
 
 .space {
