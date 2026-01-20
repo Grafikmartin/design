@@ -1,0 +1,45 @@
+/* Style Guide - Portfolio Farbpalette */
+
+:root {
+  /* Primärfarben */
+  --color-electric-blue: #2563FF;
+  --color-hot-pink: #FF2D8D;
+  --color-vivid-purple: #7C3AED;
+  --color-lime-green: #22C55E;
+  --color-sunny-orange: #FF8A00;
+
+  /* Hintergrund */
+  --bg-primary: #0a0a0a;
+  --bg-secondary: #1a1a1a;
+  
+  /* Text */
+  --text-primary: #ffffff;
+  --text-secondary: rgba(255, 255, 255, 0.8);
+  
+  /* Spacing */
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 2rem;
+  --spacing-lg: 4rem;
+  --spacing-xl: 6rem;
+  
+  /* Typography */
+  --font-family-primary: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-size-hero: clamp(3rem, 8vw, 8rem);
+  --font-weight-bold: 700;
+  --font-weight-medium: 500;
+}
+
+/* Utility Classes für Farben */
+.color-electric-blue { color: var(--color-electric-blue); }
+.color-hot-pink { color: var(--color-hot-pink); }
+.color-vivid-purple { color: var(--color-vivid-purple); }
+.color-lime-green { color: var(--color-lime-green); }
+.color-sunny-orange { color: var(--color-sunny-orange); }
+
+.bg-electric-blue { background-color: var(--color-electric-blue); }
+.bg-hot-pink { background-color: var(--color-hot-pink); }
+.bg-vivid-purple { background-color: var(--color-vivid-purple); }
+.bg-lime-green { background-color: var(--color-lime-green); }
+.bg-sunny-orange { background-color: var(--color-sunny-orange); }
+
