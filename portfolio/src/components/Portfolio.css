@@ -61,6 +61,25 @@
   color: var(--text-primary, #2a2a2a);
   transition: all 0.3s ease;
   flex-shrink: 0;
+  overflow: hidden;
+}
+
+.card.has-image {
+  background: transparent;
+}
+
+.card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 15px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  display: block;
+  pointer-events: none;
 }
 
 .first-card {
@@ -84,6 +103,7 @@
   font-weight: bold;
   background-color: var(--color-coral, #ec9a86);
   transition: all 0.5s;
+  z-index: 2;
 }
 
 .card::before {
@@ -107,8 +127,15 @@
 }
 
 .card:hover::after {
-  content: "HELLO";
   color: var(--text-primary, #2a2a2a);
+}
+
+.card.card-wetter:hover::after {
+  content: "Wetter";
+}
+
+.card.card-minigames:hover::after {
+  content: "Mini Games";
 }
 
 .card:hover {
