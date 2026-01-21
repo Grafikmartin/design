@@ -3,6 +3,7 @@ import Aufmacher from './components/Aufmacher'
 import Menue from './components/Menue'
 import ScrollHint from './components/ScrollHint'
 import Footer from './components/Footer'
+import CursorFollower from './components/CursorFollower'
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
       </section>
       <Footer />
       <ScrollHint />
+      <CursorFollower />
     </div>
   )
 }

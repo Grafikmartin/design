@@ -1,0 +1,19 @@
+.cursor-follower {
+  position: fixed;
+  width: 8px;
+  height: 8px;
+  background: var(--color-signal, #e36255);
+  border-radius: 50%;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  transition: transform 0.15s ease-out, width 0.3s ease, height 0.3s ease, opacity 0.3s ease;
+  z-index: 10000;
+  opacity: 0.8;
+  will-change: transform;
+}
+
+.cursor-follower.idle {
+  width: 16px;
+  height: 16px;
+  opacity: 1;
+}
