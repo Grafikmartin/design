@@ -1,0 +1,34 @@
+.menu {
+  margin-top: auto;
+  padding-bottom: var(--spacing-xl, 6rem);
+  text-align: center;
+  width: 100%;
+}
+
+.menu-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md, 2rem);
+  align-items: center;
+}
+
+.menu-item {
+  margin: 0;
+}
+
+.menu-link {
+  font-size: clamp(1.5rem, 4vw, 3rem);
+  font-weight: 500;
+  text-transform: lowercase;
+  color: var(--text-primary, #2a2a2a);
+  cursor: pointer;
+  transition: color 0.3s ease;
+  display: inline-block;
+}
+
+.menu-link:hover {
+  color: var(--color-signal, #e36255);
+}

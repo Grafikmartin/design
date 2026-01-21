@@ -1,0 +1,51 @@
+.scroll-hint {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  z-index: 100;
+  pointer-events: none;
+  transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55),
+              opacity 0.4s ease;
+  transform-origin: center bottom;
+}
+
+.scroll-hint-text {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-primary, #2a2a2a);
+  text-transform: lowercase;
+  white-space: nowrap;
+  transition: transform 0.3s ease;
+}
+
+.scroll-hint-arrow {
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: var(--color-signal, #e36255);
+  animation: arrow-bounce 2s ease-in-out infinite;
+  transition: transform 0.3s ease;
+  line-height: 1;
+  text-shadow: 0 0 2px rgba(227, 98, 85, 0.3);
+}
+
+.scroll-hint.bouncing {
+  transform: translateY(40px) scaleY(0.7) scaleX(1.1);
+  opacity: 0;
+}
+
+.scroll-hint.bouncing .scroll-hint-arrow {
+  transform: translateY(10px) scale(0.8);
+}
+
+@keyframes arrow-bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(8px);
+  }
+}
