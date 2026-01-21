@@ -2,6 +2,7 @@ import './App.css'
 import Aufmacher from './components/Aufmacher'
 import Menue from './components/Menue'
 import ScrollHint from './components/ScrollHint'
+import Footer from './components/Footer'
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
       <section className="menu-section">
         <Menue />
       </section>
+      <Footer />
       <ScrollHint />
     </div>
   )

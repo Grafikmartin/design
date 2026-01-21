@@ -1,0 +1,14 @@
+.footer {
+  width: 100%;
+  padding: var(--spacing-lg, 4rem) var(--spacing-md, 2rem);
+  text-align: center;
+  background: var(--bg-primary, #f1e0ce);
+}
+
+.footer-text {
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: var(--text-primary, #2a2a2a);
+  margin: 0;
+  text-transform: lowercase;
+}

@@ -1,6 +1,6 @@
 .menu {
-  margin-top: auto;
-  padding-bottom: var(--spacing-xl, 6rem);
+  margin: 0;
+  padding: 0;
   text-align: center;
   width: 100%;
 }
